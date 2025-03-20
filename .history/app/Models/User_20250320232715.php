@@ -5,9 +5,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Tymon\JWTAuth\Contracts\JWTSubject; 
+use Tymon\JWTAuth\Contracts\JWTSubject;  // إضافة هذا السطر
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable implements JWTSubject  // إضافة الواجهة
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -49,7 +49,7 @@ class User extends Authenticatable implements JWTSubject
      */
     public function getJWTIdentifier()
     {
-        return $this->getKey();  //id
+        return $this->getKey();  // العودة بالـ ID
     }
 
     /**
@@ -59,6 +59,6 @@ class User extends Authenticatable implements JWTSubject
      */
     public function getJWTCustomClaims()
     {
-        return [];
+        return [];  // يمكنك إضافة معلومات مخصصة هنا إذا لزم الأمر
     }
 }
