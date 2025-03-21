@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -13,19 +14,23 @@ class AuthController extends Controller
 {
     public function register(RegisterRequest $request)
     {
+
+
         // Create a new user with hashed password
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            // 'role_id' => '1'
         ]);
+
 
         // Generate JWT token for the registered user
         $token = JWTAuth::fromUser($user);
 
         return response()->json([
             'user' => $user,
-            'token' => $token
+            // 'token' => $token
         ], 201);
     }
 
@@ -51,4 +56,6 @@ class AuthController extends Controller
             return response()->json(['error' => 'Failed to logout, please try again'], 500);
         }
     }
+
+
 }
