@@ -21,16 +21,14 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            // 'role_id' => '1'
         ]);
 
 
-        // Generate JWT token for the registered user
         $token = JWTAuth::fromUser($user);
 
         return response()->json([
             'user' => $user,
-            // 'token' => $token
+            'token' => $token
         ], 201);
     }
 
@@ -38,7 +36,6 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        // Attempt to log in using the provided credentials
         if (!$token = Auth::guard('api')->attempt($credentials)) {
             return response()->json(['error' => 'Invalid login credentials'], 401);
         }
@@ -48,7 +45,6 @@ class AuthController extends Controller
     public function logout()
     {
         try {
-            // Invalidate the token
             JWTAuth::invalidate(JWTAuth::getToken());
 
             return response()->json(['message' => 'Successfully logged out'], 200);
