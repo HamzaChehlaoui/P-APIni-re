@@ -12,13 +12,11 @@ use Spatie\Sluggable\SlugOptions;
 
 class Plant extends Model
 {
-    use HasFactory;
+    use HasFactory, HasSlug;
 
     protected $fillable = [
-        'name',
-        'description',
-        'price',
-        'category_id',
+        "name",
+        "category_id",
     ];
 
     public function orders(): BelongsToMany
@@ -40,7 +38,7 @@ class Plant extends Model
         /**
      * Get the options for generating the slug.
      */
-    public function getSlugOptions()
+    public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('name')
@@ -57,5 +55,3 @@ class Plant extends Model
         return 'slug'; // Use the slug as the route key
     }
 }
-
-

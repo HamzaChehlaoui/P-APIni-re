@@ -9,20 +9,21 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
-            $table->id();
-            $table->enum('user_type', ['admin', 'client', 'employee']);
-
+        Schema::table('plants', function (Blueprint $table) {
+            $table->string('slug')->unique()->after('name');
         });
     }
 
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::table('plants', function (Blueprint $table) {
+            $table->dropColumn('slug');
+        });
     }
+    
 };

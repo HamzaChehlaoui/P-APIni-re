@@ -185,4 +185,7 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+    'jwt_secret' => env('JWT_SECRET', 'default_secret_key'),
+
+
 ];
