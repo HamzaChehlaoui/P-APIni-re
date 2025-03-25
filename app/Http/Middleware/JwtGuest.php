@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminMiddleware
+class JwtGuest
 {
     /**
      * Handle an incoming request.
@@ -15,9 +15,11 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!$request->user() || $request->user()->role !== 'admin') {
-            return response()->json(['message' => 'Forbidden'], 403);
+        $token = $request->bearerToken();
+
+        if ($token) {
+            $next($request);
         }
-        return $next($request);
+        return response()->json(['message' => 'Token not provided'], 401);
     }
 }
