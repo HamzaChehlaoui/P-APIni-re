@@ -31,7 +31,7 @@ Route::middleware("jwt.auth")->group(function(){
         Route::put("/{slug}", [PlantController::class, "update"])->middleware("admin");
         Route::delete("/{slug}", [PlantController::class, "destroy"])->middleware("admin");
     });
-
+ 
     Route::prefix("orders")->group(function () {
         Route::get("/", [OrderController::class, "index"]);
         Route::post("/", [OrderController::class, "store"])->middleware("client");
