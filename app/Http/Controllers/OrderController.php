@@ -18,39 +18,7 @@ class OrderController extends Controller
         $this->orderRepository = $orderRepository;
     }
 
-    /**
-     * @OA\Get(
-     *     path="/api/orders",
-     *     summary="Get a list of orders",
-     *     description="Retrieves a list of orders. If the user is a client, only their orders are returned.",
-     *     operationId="getOrders",
-     *     tags={"Orders"},
-     *     @OA\Response(
-     *         response=200,
-     *         description="List of orders",
-     *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(
-     *                 type="object",
-     *                 @OA\Property(property="id", type="integer", example=1),
-     *                 @OA\Property(property="client_id", type="integer", example=1),
-     *                 @OA\Property(property="status", type="string", example="pending"),
-     *                 @OA\Property(property="created_at", type="string", format="date-time", example="2023-10-01T10:00:00Z"),
-     *                 @OA\Property(property="updated_at", type="string", format="date-time", example="2023-10-01T10:00:00Z"),
-     *                 @OA\Property(property="plants", type="array", @OA\Items(type="integer", example=1))
-     *             )
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=500,
-     *         description="Server error",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status", type="boolean", example=false),
-     *             @OA\Property(property="message", type="string", example="Internal Server Error")
-     *         )
-     *     )
-     * )
-     */
+
     public function index()
     {
         try {
@@ -64,51 +32,6 @@ class OrderController extends Controller
         }
     }
 
-    /**
-     * @OA\Get(
-     *     path="/api/orders/{id}",
-     *     summary="Get an order by ID",
-     *     description="Retrieves an order by its ID.",
-     *     operationId="getOrderById",
-     *     tags={"Orders"},
-     *     @OA\Parameter(
-     *         name="id",
-     *         in="path",
-     *         description="ID of the order to retrieve",
-     *         required=true,
-     *         @OA\Schema(type="integer")
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Order found",
-     *         @OA\JsonContent(
-     *             type="object",
-     *             @OA\Property(property="id", type="integer", example=1),
-     *             @OA\Property(property="client_id", type="integer", example=1),
-     *             @OA\Property(property="status", type="string", example="pending"),
-     *             @OA\Property(property="created_at", type="string", format="date-time", example="2023-10-01T10:00:00Z"),
-     *             @OA\Property(property="updated_at", type="string", format="date-time", example="2023-10-01T10:00:00Z"),
-     *             @OA\Property(property="plants", type="array", @OA\Items(type="integer", example=1))
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=404,
-     *         description="Order not found",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status", type="boolean", example=false),
-     *             @OA\Property(property="message", type="string", example="Order not found")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=500,
-     *         description="Server error",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status", type="boolean", example=false),
-     *             @OA\Property(property="message", type="string", example="Internal Server Error")
-     *         )
-     *     )
-     * )
-     */
     public function show(int $id)
     {
         try {
@@ -138,66 +61,7 @@ class OrderController extends Controller
         }
     }
 
-    /**
-     * @OA\Put(
-     *     path="/api/orders/{id}",
-     *     summary="Update an order",
-     *     description="Updates an order by its ID. Clients can only cancel their own pending orders.",
-     *     operationId="updateOrder",
-     *     tags={"Orders"},
-     *     @OA\Parameter(
-     *         name="id",
-     *         in="path",
-     *         description="ID of the order to update",
-     *         required=true,
-     *         @OA\Schema(type="integer")
-     *     ),
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\JsonContent(
-     *             required={"status"},
-     *             @OA\Property(property="status", type="string", example="cancelled")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Order updated successfully",
-     *         @OA\JsonContent(
-     *             type="object",
-     *             @OA\Property(property="id", type="integer", example=1),
-     *             @OA\Property(property="client_id", type="integer", example=1),
-     *             @OA\Property(property="status", type="string", example="cancelled"),
-     *             @OA\Property(property="created_at", type="string", format="date-time", example="2023-10-01T10:00:00Z"),
-     *             @OA\Property(property="updated_at", type="string", format="date-time", example="2023-10-01T10:00:00Z"),
-     *             @OA\Property(property="plants", type="array", @OA\Items(type="integer", example=1))
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=403,
-     *         description="Forbidden",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status", type="boolean", example=false),
-     *             @OA\Property(property="message", type="string", example="You are not allowed to update this order")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=404,
-     *         description="Order not found",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status", type="boolean", example=false),
-     *             @OA\Property(property="message", type="string", example="Order not found")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=500,
-     *         description="Server error",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status", type="boolean", example=false),
-     *             @OA\Property(property="message", type="string", example="Internal Server Error")
-     *         )
-     *     )
-     * )
-     */
+
     public function update(int $id, UpdateOrderRequest $request)
     {
         try {
@@ -231,43 +95,7 @@ class OrderController extends Controller
         }
     }
 
-    /**
-     * @OA\Post(
-     *     path="/api/orders",
-     *     summary="Create a new order",
-     *     description="Creates a new order with the provided details.",
-     *     operationId="createOrder",
-     *     tags={"Orders"},
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\JsonContent(
-     *             required={"plants_ids"},
-     *             @OA\Property(property="plants_ids", type="array", @OA\Items(type="integer", example=1))
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=201,
-     *         description="Order created successfully",
-     *         @OA\JsonContent(
-     *             type="object",
-     *             @OA\Property(property="id", type="integer", example=1),
-     *             @OA\Property(property="client_id", type="integer", example=1),
-     *             @OA\Property(property="status", type="string", example="pending"),
-     *             @OA\Property(property="created_at", type="string", format="date-time", example="2023-10-01T10:00:00Z"),
-     *             @OA\Property(property="updated_at", type="string", format="date-time", example="2023-10-01T10:00:00Z"),
-     *             @OA\Property(property="plants", type="array", @OA\Items(type="integer", example=1))
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=500,
-     *         description="Server error",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status", type="boolean", example=false),
-     *             @OA\Property(property="message", type="string", example="Internal Server Error")
-     *         )
-     *     )
-     * )
-     */
+   
     public function store(StoreOrderRequest $request)
     {
         try {
