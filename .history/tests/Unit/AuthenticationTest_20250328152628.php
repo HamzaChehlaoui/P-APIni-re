@@ -17,7 +17,7 @@ class AuthenticationTest extends TestCase
 {
     protected MockInterface $jwtService;
 
-
+  
 
     public function test_logout_returns_success_message()
     {
