@@ -54,7 +54,7 @@ class User extends Authenticatable
     {
         $query->where('role_id', RoleEnum::CLIENT);
     }
-    
+
 
     /**
      * The attributes that should be hidden for serialization.

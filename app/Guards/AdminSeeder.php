@@ -15,7 +15,7 @@ class AdminSeeder extends Seeder
     public function run(): void
     {
         User::factory(1)->make()->each(function($user){
-            $user->email = "hamza@gmail.com";
+            $user->email = "ilyass@gmail.com";
             $user->role_id = RoleEnum::ADMIN;
             $user->save();
         });
