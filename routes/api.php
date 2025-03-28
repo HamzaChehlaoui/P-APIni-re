@@ -52,6 +52,8 @@ Route::prefix("auth")->group(function () {
     Route::post("/logout", [AuthController::class, "logout"]);
 })->middleware("jwt.guest");
 
+Route::post("/logout", [AuthController::class, "logout"]);
+
 Route::get('/user', function () {
     return Auth::user();
 })->middleware('jwt.auth');

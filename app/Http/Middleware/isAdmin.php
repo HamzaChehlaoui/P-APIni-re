@@ -6,6 +6,9 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
+use App\Models\User;
+
+
 
 class isAdmin
 {
@@ -16,10 +19,11 @@ class isAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->isAdmin()) {
+        /** @var User $user */
+        $user = Auth::user();
+        if (Auth::check() && $user->isAdmin()) {
             return $next($request);
         }
-
-        return response()->json(['message' => 'Unauthorized'], 401);
+        return response()->json(['message' => 'You do not have administrator privileges.'], 403);
     }
 }
