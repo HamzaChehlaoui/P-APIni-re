@@ -11,7 +11,40 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-   
+    /**
+     * @OA\Post(
+     *     path="/api/signup",
+     *     summary="Register a new user",
+     *     description="Registers a new user with the provided details and returns a JWT token.",
+     *     operationId="signup",
+     *     tags={"Auth"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"name", "email", "password", "role_id"},
+     *             @OA\Property(property="name", type="string", example="John Doe"),
+     *             @OA\Property(property="email", type="string", format="email", example="johndoe@example.com"),
+     *             @OA\Property(property="password", type="string", format="password", example="password123"),
+     *             @OA\Property(property="role_id", type="integer", example="2")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="User registered successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="token", type="string", example="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Server error or invalid role",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Invalid role selected.")
+     *         )
+     *     )
+     * )
+     */
     public function signup(RegisterUserRequest $request)
     {
         try {
